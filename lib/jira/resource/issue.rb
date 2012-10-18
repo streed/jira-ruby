@@ -41,8 +41,7 @@ module JIRA
 
       def self.jql(client, jql, options )
         url = client.options[:rest_base_path] + "/search?jql=" + jql
-	body = { "maxResults" => max_returned }
-	body = body.to_json
+	body = options.to_json
         response = client.post(url, body=body ) 
         json = parse_json(response.body)
         json['issues'].map do |issue|
