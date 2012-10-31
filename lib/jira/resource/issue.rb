@@ -39,11 +39,8 @@ module JIRA
         end
       end
 
-      def self.jql( client, jql, startAt=0, maxResults=50 )
+      def self.jql( client, jql, startAt, maxResults )
         url = client.options[:rest_base_path] + "/search?jql=" + CGI.escape( jql ) + "&startAt=#{startAt}&maxResults=#{maxResults}"
-	Rails.logger.info( url )
-	#body = options.to_json
-        #response = client.post(url, body=body ) 
 	response = client.get( url ) 
         json = parse_json(response.body)
         json['issues'].map do |issue|
